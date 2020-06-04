@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Logged info page";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message <span class="text-primary">@Session["Name"] @Session["Surname"]</span></h3>
+
+
+<div class="jumbotron">
+    <h4>You are from - <strong class="alert-info">@Session["City"]</strong></h4>
+    <h4>Administrator - <strong class="alert-info">@Session["isAdmin"]</strong></h4>
+    @if (Session["isActive"] == "Active")
+    {<h4>Account Status - <span class="alert-success">@Session["isActive"]</span></h4>}
+    else { <h4>Account Status - <span class="alert-danger">@Session["isActive"]</span></h4>}
+
+    </div>
+<div style="text-align:center" class="jumbotron">
+
+
+
+
+    <h4>You can logout by pressing button below:</h4>
+    
+    <p><a href="/Home/Logout" class="btn btn-primary btn-lg">Logout &raquo;</a></p>
+    </div>
+
+
+
+<address>
+    One Rozdilna Way<br />
+    Rozdilna, UA 3808052-6399<br />
+    <abbr title="Phone">P:</abbr>
+    +38-093-652-0202
+</address>
+
+<address>
+    <strong>Support:</strong>   <a href="mailto:Support@musicportal.com">Support@musicportal.com</a><br />
+    <strong>Marketing:</strong> <a href="mailto:Marketing@musicportal.com">Marketing@musicportal.com</a>
+</address>

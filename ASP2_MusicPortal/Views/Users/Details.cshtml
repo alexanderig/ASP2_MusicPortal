@@ -1,0 +1,70 @@
+﻿@model ASP2_MusicPortal.Models.ViewModels.ViewUser
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Users Details</h4>
+    <hr />
+    <div class="jumbotron">
+        <div class="bg-primary" style="width:100%; height:40px; border-radius:5px"></div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Surname)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Surname)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Login)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Login)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.City)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.isActive)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.isActive)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.isAdmin)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.isAdmin)
+            </dd>
+
+        </dl>
+
+    </div>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID })  |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

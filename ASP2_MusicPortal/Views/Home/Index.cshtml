@@ -1,0 +1,182 @@
+﻿@model IEnumerable<ASP2_MusicPortal.Models.Entities.Phonoteka>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+</br>
+    <div class="well">
+        @using (Html.BeginForm("", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+            <!--
+        Для передачи больших файлов используется MIME-тип данных multipart/form-data;
+        при формировании формы с несколькими элементами загрузки файлов необходимо формировать
+        имена элементов (атрибуты name) с индексаторами [№]. Это соглашение ASP.NET MVC,
+        которое позволяет автоматически получить массив элементов при работе с действиями контроллеров.
+        -->
+            @*<div class="form-group">
+                @Html.DropDownList("ID", ViewBag.MyGenres as SelectList, new { @class = "form-control" })
+
+            </div>*@
+            <div class="row">
+                <div class="col-sm-4"><h4 class="text-success">Add files to collection</h4></div>
+                <div class="col-sm-4"><input type="file" accept=".mp3,.wav" name="fileUpload" multiple value="Choose files" class="btn btn-success" /></div>
+                <div class="col-sm-4"><input type="submit" name="Submit" id="SubmitMultiply" value="Upload" class="btn btn-success" /></div>
+            </div>
+
+
+        }
+        <p class="text-info">
+            @if (ViewBag.Text != null)
+            {@ViewBag.Text}
+        </p>
+        @using (Html.BeginForm("", "Home", FormMethod.Post))
+        {
+
+    <div style="display:flex">
+        @Html.DropDownList("ID", ViewBag.MyGenres as SelectList, new { @class = "form-control" })
+        <div class="col-sm-4"><input type="submit" name="Filter" value="Apply" class="btn btn-success" /></div>
+    </div>
+            <div class="row">
+                
+            </div>
+
+
+        }
+
+    </div>
+
+
+
+    <table class="table table-hover table-responsive table-striped">
+        <thead class="bg-primary">
+            <tr>
+                <th style="width:6%">#</th>
+                <th style="width:auto">
+                    <div style="display:flex; align-items:flex-end">
+                        <div> @Html.DisplayNameFor(model => model.TrackName)</div>
+                       
+                        <form class="navbar-form navbar-left" style="margin:0 0 0 20px">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" name="search" id="myInput">
+                                <div class="input-group-btn">
+                                    <span class="btn btn-default">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </th>
+                <th style="width:10%">
+                    @Html.DisplayNameFor(model => model.Genres)
+                </th>
+                <th style="width:10%">Action</th>
+            </tr>
+        </thead>
+        <tbody class="container-fluid" id="myTable">
+
+            @{ int count = 0; }
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td># @{count++;} @count </td>
+                    <td>
+                        <audio controls style="width:100%">
+                            <source src="@item.TrackURL" type="audio/mp3" />
+                        </audio>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#3home_@count" style="padding:2px">Track Name</a></li>
+                            <li><a data-toggle="tab" href="#menu1_@count" style="padding:2px">Mp3 Tag</a></li>
+                            <li><a data-toggle="tab" href="#menu2_@count" style="padding:2px">Properties</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div id="3home_@count" class="tab-pane fade in active">
+                                <p> <span class="text-warning">@Html.DisplayFor(modelItem => item.TrackName)</span></p>
+                            </div>
+                            <div id="menu1_@count" class="tab-pane fade">
+                                <div style="display:flex; justify-content:space-around">
+                                    <div style="display:flex; justify-content:flex-start; flex-direction:column">
+                                        <p><span class="glyphicon glyphicon-music"> Title: </span> <span class="text-primary">@Html.DisplayFor(modelItem => item.Title)</span></p>
+                                        <p><span class="glyphicon glyphicon-user"> Artist: </span> <span class="text-primary">@Html.DisplayFor(modelItem => item.Artist)</span></p>
+                                    </div>
+                                    <div style="display:flex; justify-content:flex-start; flex-direction:column">
+                                        <p><span class="glyphicon glyphicon-book"> Album: </span> <span class="text-primary">@Html.DisplayFor(modelItem => item.Album)</span></p>
+                                        <p><span class="glyphicon glyphicon-calendar"> Year: </span> <span class="text-primary">@Html.DisplayFor(modelItem => item.Year)</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="menu2_@count" class="tab-pane fade">
+                                <div style="display:flex; justify-content:space-around">
+                                    <div style="display:flex; justify-content:space-around; flex-direction:column">
+                                        <p><span class="glyphicon glyphicon-time"> Duration: </span> <span class="text-primary">@Html.DisplayFor(modelItem => item.Duration)</span></p>
+                                        <p><span class="glyphicon glyphicon-headphones"> Mode: </span> <span class="text-primary">@Html.DisplayFor(modelItem => item.Mode)</span></p>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-around; flex-direction:column">
+                                        <p><span class="glyphicon glyphicon-equalizer"> Frequency: </span> <span class="text-primary">@Html.DisplayFor(modelItem => item.Frequency)</span></p>
+                                        <p><span class="glyphicon glyphicon-stats"> Bitrate: </span> <span class="text-primary">@Html.DisplayFor(modelItem => item.Bitrate)</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Genres.Genre)
+                    </td>
+                    <td>
+                        @if (Session["isAdmin"] == "Yes")
+                        {
+                            <span class="glyphicon glyphicon-remove"></span>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "text-danger"})
+                        }
+                        else
+                        { <p class="text-info">No Action</p>}
+
+                    </td>
+                    </tr>
+                }
+</tbody>
+    </table>
+    <p class="text-primary">Total files @count</p>
+
+    <script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+    </script>
+
+    @*<div class="jumbotron">
+            <h1>ASP.NET</h1>
+            <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+            <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Getting started</h2>
+                <p>
+                    ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                    enables a clean separation of concerns and gives you full control over markup
+                    for enjoyable, agile development.
+                </p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Get more libraries</h2>
+                <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Web Hosting</h2>
+                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+            </div>
+        </div>*@

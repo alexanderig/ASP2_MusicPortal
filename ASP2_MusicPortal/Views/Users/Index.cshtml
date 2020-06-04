@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ASP2_MusicPortal.Models.ViewModels.ViewUser>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+<div class="jumbotron">
+    <table class="table">
+        <thead class="bg-primary">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Surname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Login)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.isActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.isAdmin)
+                </th>
+                <th></th>
+        </thead>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isAdmin)
+                </td>
+                <td>
+                    @if (item.Login == "admin")
+                    {<p class="alert-info">This record immutable</p>}
+                    else
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID })<span> |</span>
+                        @Html.ActionLink("Details", "Details", new { id = item.ID })<span> |</span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })}
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
